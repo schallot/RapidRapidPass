@@ -98,20 +98,82 @@ var addCssAndModalToPage = function(title, allowClosing){
 	\r\n\
 	.rapidrapidcenter{ text-align: center; }\r\n\
 	\r\n\
-	/* The Close Button */\
-	.rapidrapidclose {\
-		color: #aaa;\
-		float: right;\
-		font-size: 28px;\
-		font-weight: bold;\
-	}\
-	\
-	.rapidrapidclose:hover,\
-	.rapidrapidclose:focus {\
-		color: black;\
-		text-decoration: none;\
-		cursor: pointer;\
-	}\
+	/* The Close Button */\r\n\
+	.rapidrapidclose {\r\n\
+		color: #aaa;\r\n\
+		float: right;\r\n\
+		font-size: 28px;\r\n\
+		font-weight: bold;\r\n\
+	}\r\n\
+	\r\n\
+	.rapidrapidclose:hover,\r\n\
+	.rapidrapidclose:focus {\r\n\
+		color: black;\r\n\
+		text-decoration: none;\r\n\
+		cursor: pointer;\r\n\
+	}\r\n\
+	\r\n\
+	/* Yes/No Radio Buttons */\r\n\
+	.switch-field {\r\n\
+	  font-family: \"Lucida Grande\", Tahoma, Verdana, sans-serif;\r\n\
+	  padding: 0px;\r\n\
+		overflow: hidden;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-title {\r\n\
+	  margin-bottom: 6px;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field input {\r\n\
+		position: absolute !important;\r\n\
+		clip: rect(0, 0, 0, 0);\r\n\
+		height: 1px;\r\n\
+		width: 1px;\r\n\
+		border: 0;\r\n\
+		overflow: hidden;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field label {\r\n\
+	  float: left;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field label {\r\n\
+	  display: inline-block;\r\n\
+	  width: 60px;\r\n\
+	  background-color: #e4e4e4;\r\n\
+	  color: rgba(0, 0, 0, 0.6);\r\n\
+	  font-size: 14px;\r\n\
+	  font-weight: normal;\r\n\
+	  text-align: center;\r\n\
+	  text-shadow: none;\r\n\
+	  padding: 6px 14px;\r\n\
+	  border: 1px solid rgba(0, 0, 0, 0.2);\r\n\
+	  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);\r\n\
+	  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);\r\n\
+	  -webkit-transition: all 0.1s ease-in-out;\r\n\
+	  -moz-transition:    all 0.1s ease-in-out;\r\n\
+	  -ms-transition:     all 0.1s ease-in-out;\r\n\
+	  -o-transition:      all 0.1s ease-in-out;\r\n\
+	  transition:         all 0.1s ease-in-out;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field label:hover {\r\n\
+		cursor: pointer;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field input:checked + label {\r\n\
+	  background-color: #A5DC86;\r\n\
+	  -webkit-box-shadow: none;\r\n\
+	  box-shadow: none;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field label:first-of-type {\r\n\
+	  border-radius: 4px 0 0 4px;\r\n\
+	}\r\n\
+	\r\n\
+	.switch-field label:last-of-type {\r\n\
+	  border-radius: 0 4px 4px 0;\r\n\
+	}\r\n\
 	\r\n")
     .appendTo("head");
 	
@@ -241,9 +303,9 @@ var getConfigFromDatastore = function(callback){
 			{q:"In the past 4 months, have you been exposed to a local Hepatitis A Outbreak?",
 				a:false}
 		];
-		
+
 		var getExistingSetting = function(question){
-			for(var int i = 0; i< config.responses.length; i++){
+			for(var i = 0; i< config.responses.length; i++){
 				var qa = config.responses[i];
 				if(qa.q == question)
 				{
@@ -366,6 +428,17 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	table.append(createTableRow("Gender",genderRadioForm));	
 	table.append(createTableRow("Zip Code", zipCodeInput));
 	table.append(createTableRow("Email Address", emailInput));
+	
+	
+	var toggler = $("<div class=\"switch-field\">\r\n\
+      <input type=\"radio\" id=\"switch_left\" name=\"switch_2\" value=\"yes\" checked/>\r\n\
+      <label for=\"switch_left\">Yes</label>\r\n\
+      <input type=\"radio\" id=\"switch_right\" name=\"switch_2\" value=\"no\" />\r\n\
+      <label for=\"switch_right\">No</label>\r\n\
+    </div>\r\n")
+	
+	table.append(createTableRow("A question of some sort", toggler))
+	
 	settingsSpan.append(table);
 	
 	var saveButton = createButton(rapidrapidkeys.saveButton, "Save")
