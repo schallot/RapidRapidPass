@@ -429,15 +429,15 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	table.append(createTableRow("Zip Code", zipCodeInput));
 	table.append(createTableRow("Email Address", emailInput));
 	
-	
-	var toggler = $("<div class=\"switch-field\">\r\n\
-      <input type=\"radio\" id=\"switch_left\" name=\"switch_2\" value=\"yes\" checked/>\r\n\
-      <label for=\"switch_left\">Yes</label>\r\n\
-      <input type=\"radio\" id=\"switch_right\" name=\"switch_2\" value=\"no\" />\r\n\
-      <label for=\"switch_right\">No</label>\r\n\
-    </div>\r\n")
-	
-	table.append(createTableRow("A question of some sort", toggler))
+	config.responses.forEach(function(qa, index){
+		var toggler = $("<div class=\"switch-field\">\r\n\
+		  <input type=\"radio\" id=\"switch_left\" name=\"switch_" + index + "\" value=\"yes\" checked/>\r\n\
+		  <label for=\"switch_left\">Yes</label>\r\n\
+		  <input type=\"radio\" id=\"switch_right\" name=\"switch_" + index + "\" value=\"no\" />\r\n\
+		  <label for=\"switch_right\">No</label>\r\n\
+		</div>\r\n");
+		table.append(createTableRow(qa.q, toggler))
+	});
 	
 	settingsSpan.append(table);
 	
