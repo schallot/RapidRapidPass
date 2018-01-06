@@ -415,7 +415,7 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	
 	var settingsSpan = $("#rapidrapidsettingsmodal");
 	var table = createElt("table");
-		
+	
 	var header = createElt("tr", createElt("th", "Property Name"), createElt("th", "Value"));
 	table.append(header);
 
@@ -439,6 +439,10 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	var enableSave = function(){
 		saveButton.attr('disabled', false);
 	};
+
+	var qaTable = createElt("table");
+	var qaHeader = createElt("tr", createElt("th", "RapidPass Question"), createElt("th", "Answer"));
+	qaTable.append(qaHeader);
 	
 	config.responses.forEach(function(qa, index){
 		var leftCheck = "";
@@ -465,10 +469,12 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 			}
 		})	
 		var row = createTableRow(qa.q, toggler);
-		table.append(row)
+		qaTable.append(row)
 	});
 	
 	settingsSpan.append(table);
+	settingsSpan.append($("<br />"))
+	settingsSpan.append(qaTable);
 	
 	var startAutofillButton = createButton("btnStartRapidRapid", "Start RapidPass Autofill");
 	if(!startRapidRapidAutofillCallback){
