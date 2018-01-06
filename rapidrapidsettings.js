@@ -429,6 +429,17 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	table.append(createTableRow("Zip Code", zipCodeInput));
 	table.append(createTableRow("Email Address", emailInput));
 	
+	var saveButton = createButton(rapidrapidkeys.saveButton, "Save")
+	saveButton.attr("disabled", "disabled");
+
+	var disableSave = function(){
+		saveButton.attr("disabled", "disabled");
+	}
+	
+	var enableSave = function(){
+		saveButton.attr('disabled', false);
+	};
+	
 	config.responses.forEach(function(qa, index){
 		var leftCheck = "";
 		var rightCheck = "checked";
@@ -450,6 +461,7 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 			if(qa.a != yes.checked){
 				console.log("Changing answer to question <" + qa.q + "> from <" + qa.a + "> to <" + yes.checked + ">.");
 				qa.a = yes.checked;
+				enableSave();
 			}
 		})	
 		var row = createTableRow(qa.q, toggler);
@@ -457,9 +469,6 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	});
 	
 	settingsSpan.append(table);
-	
-	var saveButton = createButton(rapidrapidkeys.saveButton, "Save")
-	saveButton.attr("disabled", "disabled");
 	
 	var startAutofillButton = createButton("btnStartRapidRapid", "Start RapidPass Autofill");
 	if(!startRapidRapidAutofillCallback){
@@ -471,14 +480,6 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 		centerAlignDiv.append(startAutofillButton);
 		settingsSpan.append(centerAlignDiv);
 	}
-
-	var disableSave = function(){
-		saveButton.attr("disabled", "disabled");
-	}
-	
-	var enableSave = function(){
-		saveButton.attr('disabled', false);
-	};
 	
 	//////////////////////////////////////////
 	/// Populate control values from config 
