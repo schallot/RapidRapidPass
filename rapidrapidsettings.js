@@ -248,7 +248,7 @@ var getConfigFromDatastore = function(callback){
 				a:false},
 			{q:"In the past 12 months have you had sexual contact with a prostitute or anyone else who takes money or drugs or other payment for sex?",
 				a:false},
-			{q:"In the past 12 months have you had sexual contact with anyone who has ever used needles to take drugs or steroids, or anything NOT prescribed by,their doctor?",
+			{q:"In the past 12 months have you had sexual contact with anyone who has ever used needles to take drugs or steroids, or anything NOT prescribed by their doctor?",
 				a:false},
 			{q:"Male Donors: In the past 12 months, have you had sexual contact with another male?",
 				a:false},
@@ -559,7 +559,7 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 
 var showRapidRapidSettingsModal = function(existingConfig,startRapidRapidAutofillCallback){
 	$(document).ready(function() {
-		var title = "RapidRapidPass Settings.  After you make a change, be sure to hit the save button.";
+		var title = "RapidRapidPass Settings.  After you make a change, be sure to hit the save button at the bottom of this page.";
 		var allowModalClose = false;
 		if(startRapidRapidAutofillCallback)
 		{
