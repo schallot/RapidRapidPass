@@ -430,13 +430,30 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 	table.append(createTableRow("Email Address", emailInput));
 	
 	config.responses.forEach(function(qa, index){
+		var leftCheck = "";
+		var rightCheck = "checked";
+		
+		if(qa.a === true){
+			leftCheck = "checked";
+			rightCheck = "";
+		}
+		
 		var toggler = $("<div class=\"switch-field\">\r\n\
-		  <input type=\"radio\" id=\"switch_left_" + index + "\" name=\"switch_" + index + "\" value=\"yes\" checked/>\r\n\
+		  <input type=\"radio\" id=\"switch_left_" + index + "\" name=\"switch_" + index + "\" value=\"yes\" " + leftCheck + "/>\r\n\
 		  <label for=\"switch_left_" + index + "\">Yes</label>\r\n\
-		  <input type=\"radio\" id=\"switch_right_" + index + "\" name=\"switch_" + index + "\" value=\"no\" />\r\n\
+		  <input type=\"radio\" id=\"switch_right_" + index + "\" name=\"switch_" + index + "\" value=\"no\" " + rightCheck + "/>\r\n\
 		  <label for=\"switch_right_" + index + "\">No</label>\r\n\
 		</div>\r\n");
-		table.append(createTableRow(qa.q, toggler))
+		
+		toggler.click(function(){
+			var yes = toggler.find("input")[0];
+			if(qa.a != yes.checked){
+				console.log("Changing answer to question <" + qa.q + "> from <" + qa.a + "> to <" + yes.checked + ">.");
+				qa.a = yes.checked;
+			}
+		})	
+		var row = createTableRow(qa.q, toggler);
+		table.append(row)
 	});
 	
 	settingsSpan.append(table);
@@ -511,7 +528,7 @@ var createAndPopulateConfigEditControls = function(config, startRapidRapidAutofi
 		else{
 			config[rapidrapidkeys.powerswitch] = "enabled";
 		}
-		
+
 		saveConfigToDatastore(config, function(){
 			console.log("All settings saved.");
 			if(callback){
